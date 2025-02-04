@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
             'goal_node = nav2_random_goal.goal_node:main',
-            'points_node = nav2_random_goal.points_node:main'
+            'points_node = nav2_random_goal.points_node:main',
+            'points_saver = nav2_random_goal.points_saver:main'
         ],
     },
 )
