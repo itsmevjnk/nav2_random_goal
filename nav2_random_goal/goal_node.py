@@ -16,6 +16,8 @@ class Nav2RandomGoal(Node):
     def __init__(self):
         super().__init__('nav2_random_goal')
 
+        self.always = self.declare_parameter('always', True).get_parameter_value().bool_value
+
         self.empty_cells: list[Point] = []
         latched_qos = qos.QoSProfile(
             reliability=qos.QoSReliabilityPolicy.RELIABLE,
@@ -33,7 +35,7 @@ class Nav2RandomGoal(Node):
 
         latest_status: GoalStatus = data.status_list[-1] # newest goal is last
         self.get_logger().info(f'latest goal status: {latest_status.status}')
-        if latest_status.status >= 4: # 4 = succeeded, 5 = canceled, 6 = aborted
+        if latest_status.status == 4 or (self.always and latest_status.status > 4): # 4 = succeeded, 5 = canceled, 6 = aborted
             if len(self.empty_cells) == 0: return # no cells
             yaw = (np.random.rand() * 2 - 1) * np.pi # [-pi, pi)
             goal = PoseStamped()

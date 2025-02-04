@@ -1,5 +1,6 @@
 <launch>
     <arg name="max_cost" default="50"/>
+    <arg name="always" default="true"/>
 
     <node pkg="nav2_random_goal" exec="points_node" name="map_points">
         <remap from="map" to="/global_costmap/costmap"/>
@@ -11,5 +12,6 @@
         <remap from="goal_points" to="/global_costmap/points"/>
         <remap from="goal_pose" to="/goal_pose"/>
         <remap from="goal_status" to="/navigate_to_pose/_action/status" />
+        <param name="always" value="$(var always)"/>
     </node>
 </launch>
