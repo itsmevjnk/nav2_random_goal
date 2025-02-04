@@ -1,0 +1,16 @@
+<launch>
+    <arg name="output" />
+
+    <arg name="generate_points" default="false" />
+    <arg name="max_cost" default="50"/>
+
+    <node pkg="nav2_random_goal" exec="points_node" name="map_points" if="$(var generate_points)">
+        <remap from="map" to="/global_costmap/costmap"/>
+        <param name="sel_max" value="$(var max_cost)"/>
+        <remap from="points" to="/global_costmap/points"/>
+    </node>
+
+    <node name="points_saver" pkg="nav2_random_goal" exec="points_saver" output="screen">
+        <remap from="points" to="/global_costmap/points" />
+    </node>
+</launch>

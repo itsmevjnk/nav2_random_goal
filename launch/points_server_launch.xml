@@ -1,0 +1,7 @@
+<launch>
+    <arg name="points_file" />
+
+    <node name="points_server" pkg="nav2_random_goal" exec="points_server_node" output="screen">
+        <param name="points_file" value="$(var points_file)" />
+    </node>
+</launch>
