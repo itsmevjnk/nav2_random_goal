@@ -1,10 +1,15 @@
 <launch>
     <arg name="max_cost" default="50"/>
 
-    <node pkg="nav2_random_goal" exec="goal_node" name="random_goal">
-        <remap from="goal_pose" to="/goal_pose"/>
+    <node pkg="nav2_random_goal" exec="points_node" name="map_points">
         <remap from="map" to="/global_costmap/costmap"/>
-        <remap from="goal_status" to="/navigate_to_pose/_action/status" />
         <param name="sel_max" value="$(var max_cost)"/>
+        <remap from="points" to="/global_costmap/points"/>
+    </node>
+
+    <node pkg="nav2_random_goal" exec="goal_node" name="random_goal">
+        <remap from="goal_points" to="/global_costmap/points"/>
+        <remap from="goal_pose" to="/goal_pose"/>
+        <remap from="goal_status" to="/navigate_to_pose/_action/status" />
     </node>
 </launch>

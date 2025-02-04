@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'goal_node = nav2_random_goal.goal_node:main'
+            'goal_node = nav2_random_goal.goal_node:main',
+            'points_node = nav2_random_goal.points_node:main'
         ],
     },
 )
